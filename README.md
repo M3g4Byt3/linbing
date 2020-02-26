@@ -96,7 +96,7 @@
 
 ## 访问
 
-> 访问<http://yourip:11000>即可
+> 访问<http://yourip:11000/login>即可
 
 ## 致谢
 
