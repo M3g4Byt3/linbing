@@ -13,7 +13,8 @@ from IPy import IP
 from urllib.parse import urlparse
 from flask_cors import *
 from flask import Flask, request, redirect,url_for, send_from_directory
-from werkzeug import SharedDataMiddleware
+#from werkzeug import SharedDataMiddleware
+from werkzeug.middleware.shared_data import SharedDataMiddleware
 from werkzeug.utils import secure_filename
 from app.mysql import Mysql_db
 from app.sendmail import MailSender
@@ -152,7 +153,7 @@ def getchecknum ():
             else:
                 response_data['code'] = send_result[0]
                 response_data['message'] = '请求成功'
-                response_data['data'] = ''
+                response_data['data'] = aes_crypto.encrypt(send_result[1])
                 return str(response_data)
         else:
             response_data['code'] = 'Z1002'
@@ -222,7 +223,7 @@ def findpassword():
                 return str(response_data)
             else:
                 if username != query_result:
-                    print(username,query_result)
+                    # print(username,query_result)
                     response_data['code'] = 'Z1004'
                     response_data['message'] = '认证失败'
                     return str(response_data)
@@ -1003,5 +1004,5 @@ def change_avatar():
         return str(response_data)
 
 if __name__ == '__main__':
-    #app.run(debug = True, port= 5000)
-    app.run(host='0.0.0.0', port= 8000)
+    app.run(debug = True, port= 5000)
+    #app.run(host='0.0.0.0', port= 8000)

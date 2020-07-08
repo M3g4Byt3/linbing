@@ -49,6 +49,7 @@
 <script>
 import {isemail, isusername, ischecknum, ispassword} from '@/libs/validate'
 import RSA  from '@/libs/crypto'
+import AES  from '@/libs/AES'
 import http  from '@/libs/http'
 export default {
   name: 'RegisterForm',
@@ -153,7 +154,7 @@ export default {
                 title: '发送邮件成功',
                 desc: '请打开邮件查收验证码 '
             })
-            this.capta = res.data.data.capta
+            this.capta = AES.Decrypt(res.data.data)
             break
             case 'Z1001':
             this.$Notice.error({
@@ -181,6 +182,7 @@ export default {
             })
           }
           else{
+            console.log(this.capta)
             this.$emit('on-success-valid', {
               username: this.form.username,
               email: this.form.email,
